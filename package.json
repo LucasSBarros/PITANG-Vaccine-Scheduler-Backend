@@ -1,0 +1,32 @@
+{
+  "name": "pitang-vaccine-scheduler-backend",
+  "version": "1.0.0",
+  "description": "A simple vaccine schedduler project",
+  "main": "src/index.mjs",
+  "type": "module",
+  "scripts": {
+    "test": "npm test",
+    "start": "node --env-file=.env src/index.mjs",
+    "dev": "nodemon --env-file=.env src/index.mjs"
+  },
+  "dependencies": {
+    "cores": "^0.8.5",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "helmet": "^7.1.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucasSBarros/PITANG-Vaccine-Scheduler-Backend.git"
+  },
+  "author": "Lucas Barros",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LucasSBarros/PITANG-Vaccine-Scheduler-Backend/issues"
+  },
+  "homepage": "https://github.com/LucasSBarros/PITANG-Vaccine-Scheduler-Backend#readme"
+}
