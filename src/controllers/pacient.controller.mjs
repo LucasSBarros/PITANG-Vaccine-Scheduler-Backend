@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-import { addPacient } from "../services/pacient.service.mjs";
+import { addPacient, getPacients } from "../services/pacient.service.mjs";
 import pacientSchema from "../schemas/pacient.schema.mjs";
 
 export default class PacientController {
@@ -19,5 +19,15 @@ export default class PacientController {
     response
       .status(201)
       .send({ message: "Paciente criado com sucesso.", data });
+  }
+
+  index(request, response) {
+    const pacients = getPacients();
+    response.send({
+      page: 1,
+      pageSize: 20,
+      totalCount: pacients.length,
+      items: pacients,
+    });
   }
 }
