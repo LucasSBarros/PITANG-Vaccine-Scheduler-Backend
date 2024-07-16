@@ -368,4 +368,42 @@ describe("ScheduleController", () => {
       message: "Agendamento atualizado",
     });
   });
+
+  it("deve deletar um agendamento com sucesso", () => {
+    req.params = { id: "123e4567" };
+  
+    getSchedules.mockReturnValue([
+      {
+        id: "123e4567",
+        pacientId: "123456",
+        scheduleDate: new Date("2024-08-10"),
+        scheduleTime: "17:00:00",
+        scheduleStatus: "Não realizado",
+      },
+      {
+        id: "234e5678",
+        pacientId: "654321",
+        scheduleDate: new Date("2024-08-11"),
+        scheduleTime: "18:00:00",
+        scheduleStatus: "Agendado",
+      },
+    ]);
+  
+    const controller = new ScheduleController();
+    controller.destroy(req, res);
+  
+    expect(getSchedules).toHaveBeenCalled();
+    expect(updateSchedules).toHaveBeenCalledWith([
+      {
+        id: "234e5678",
+        pacientId: "654321",
+        scheduleDate: new Date("2024-08-11"),
+        scheduleTime: "18:00:00",
+        scheduleStatus: "Agendado",
+      },
+    ]);
+    expect(res.status).toHaveBeenCalledWith(204);
+    expect(res.send).toHaveBeenCalled();
+  });
+
 });

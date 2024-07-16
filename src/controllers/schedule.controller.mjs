@@ -97,4 +97,13 @@ export default class ScheduleController {
     updateSchedules(schedules);
     response.status(201).send({ message: "Agendamento atualizado" });
   }
+
+  destroy(request, response) {
+    const { id } = request.params;
+
+    const schedules = getSchedules().filter((schedule) => schedule.id !== id);
+    updateSchedules(schedules);
+
+    response.status(204).send();
+  }
 }
