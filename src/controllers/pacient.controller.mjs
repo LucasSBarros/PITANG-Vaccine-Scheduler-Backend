@@ -1,5 +1,10 @@
 import crypto from "node:crypto";
-import { addPacient, getPacients, updatePacients } from "../services/pacient.service.mjs";
+import {
+  addPacient,
+  getPacients,
+  updatePacients,
+  deletePacientById
+} from "../services/pacient.service.mjs";
 import pacientSchema from "../schemas/pacient.schema.mjs";
 
 export default class PacientController {
@@ -44,5 +49,15 @@ export default class PacientController {
 
     updatePacients(pacients);
     response.status(201).send({ message: "Paciente atualizado" });
+  }
+
+  destroy(request, response) {
+    const { id } = request.params;
+
+    deletePacientById(id);
+
+    console.log(`Pacient with id ${id}`);
+
+    response.status(204).send();
   }
 }
