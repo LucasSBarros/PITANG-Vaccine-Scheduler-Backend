@@ -8,4 +8,8 @@ routes.post("/api/pacient", (request, response) =>
   pacientController.store(request, response)
 );
 
+routes.get("/api/pacient", (request, response) =>
+  pacientController.index(request, response)
+);
+
 export default routes;

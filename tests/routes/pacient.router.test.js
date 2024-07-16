@@ -16,6 +16,18 @@ jest.mock('../../src/controllers/pacient.controller.mjs', () => {
         }
         return res.status(201).send({ id: 1, ...req.body });
       }),
+      index: jest.fn((req, res) => {
+        const mockPacients = [
+          { id: '1', fullName: 'Fulano de Tal', birthDate: '1994-06-16' },
+          { id: '2', fullName: 'Ciclano de Tal', birthDate: '1988-05-23' },
+        ];
+        res.send({
+          page: 1,
+          pageSize: 20,
+          totalCount: mockPacients.length,
+          items: mockPacients,
+        });
+      }),
     };
   });
 });
@@ -61,5 +73,19 @@ describe('Pacient Routes', () => {
 
     expect(response.status).toBe(400);
     expect(response.body.message).toBe('Erro de validação');
+  });
+
+  it('deve retornar todos os pacientes', async () => {
+    const response = await request(app)
+      .get('/api/pacient');
+
+    expect(response.status).toBe(200);
+    expect(response.body.page).toBe(1);
+    expect(response.body.pageSize).toBe(20);
+    expect(response.body.totalCount).toBe(2);
+    expect(response.body.items).toEqual([
+      { id: '1', fullName: 'Fulano de Tal', birthDate: '1994-06-16' },
+      { id: '2', fullName: 'Ciclano de Tal', birthDate: '1988-05-23' },
+    ]);
   });
 });

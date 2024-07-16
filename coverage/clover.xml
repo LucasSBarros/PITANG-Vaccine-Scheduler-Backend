@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1721098764073" clover="3.2.0">
-  <project timestamp="1721098764073" name="All files">
-    <metrics statements="45" coveredstatements="45" conditionals="6" coveredconditionals="6" methods="13" coveredmethods="13" elements="64" coveredelements="64" complexity="0" loc="45" ncloc="45" packages="5" files="5" classes="5"/>
+<coverage generated="1721099929642" clover="3.2.0">
+  <project timestamp="1721099929642" name="All files">
+    <metrics statements="47" coveredstatements="47" conditionals="6" coveredconditionals="6" methods="14" coveredmethods="14" elements="67" coveredelements="67" complexity="0" loc="47" ncloc="47" packages="5" files="5" classes="5"/>
     <package name="src">
       <metrics statements="10" coveredstatements="10" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
       <file name="index.mjs" path="/Users/lucasbarros/Documents/GitHub/PITANG-Vaccine-Scheduler-Backend/src/index.mjs">
@@ -47,13 +47,15 @@
       </file>
     </package>
     <package name="src.routes">
-      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="pacient.router.mjs" path="/Users/lucasbarros/Documents/GitHub/PITANG-Vaccine-Scheduler-Backend/src/routes/pacient.router.mjs">
-        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="4" count="2" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
         <line num="7" count="2" type="stmt"/>
         <line num="8" count="5" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.schemas">
