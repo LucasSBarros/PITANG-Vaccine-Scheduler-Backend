@@ -21,8 +21,8 @@ describe("PacientController", () => {
         birthDate: "1994-06-16",
       },
       params: {
-        id: "123e4567"
-      }
+        id: "123e4567",
+      },
     };
 
     res = {
@@ -113,7 +113,11 @@ describe("PacientController", () => {
     ];
     getPacients.mockReturnValue(mockPacients);
 
-    const updatedPacient = { id: "123e4567", fullName: "Fulano de Tal", birthDate: "1994-06-16" };
+    const updatedPacient = {
+      id: "123e4567",
+      fullName: "Fulano de Tal",
+      birthDate: "1994-06-16",
+    };
     const updatedPacients = [
       updatedPacient,
       { id: "2", fullName: "Paciente 2", birthDate: "1990-02-02" },
@@ -138,7 +142,7 @@ describe("PacientController", () => {
     getPacients.mockReturnValue(mockPacients);
 
     deletePacientById.mockImplementation(() => {
-      const updatedPacients = mockPacients.filter(p => p.id !== "123e4567");
+      const updatedPacients = mockPacients.filter((p) => p.id !== "123e4567");
       return updatedPacients;
     });
 

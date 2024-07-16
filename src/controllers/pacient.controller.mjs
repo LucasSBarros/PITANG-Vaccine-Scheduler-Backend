@@ -3,7 +3,7 @@ import {
   addPacient,
   getPacients,
   updatePacients,
-  deletePacientById
+  deletePacientById,
 } from "../services/pacient.service.mjs";
 import pacientSchema from "../schemas/pacient.schema.mjs";
 

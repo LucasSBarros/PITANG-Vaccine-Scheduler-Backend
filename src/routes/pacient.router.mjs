@@ -12,4 +12,8 @@ routes.get("/api/pacient", (request, response) =>
   pacientController.index(request, response)
 );
 
+routes.put("/api/pacient/:id", (request, response) =>
+  pacientController.update(request, response)
+);
+
 export default routes;
