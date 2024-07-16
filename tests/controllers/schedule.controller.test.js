@@ -3,6 +3,7 @@ import { getPacients } from "../../src/services/pacient.service.mjs";
 import {
   getSchedules,
   addSchedule,
+  updateSchedules,
 } from "../../src/services/schedule.service.mjs";
 import scheduleSchema from "../../src/schemas/schedule.schema.mjs";
 
@@ -223,6 +224,148 @@ describe("ScheduleController", () => {
           },
         ],
       },
+    });
+  });
+
+  it("deve agrupar agendamentos corretamente com informações dos pacientes", async () => {
+    getPacients.mockResolvedValue([
+      { id: "123456", fullName: "Fulano de Tal", birthDate: "1990-01-01" },
+      { id: "654321", fullName: "Ciclano de Tal", birthDate: "1985-02-02" },
+    ]);
+
+    getSchedules.mockReturnValue([
+      {
+        id: "1",
+        pacientId: "123456",
+        scheduleDate: "2024-08-10T00:00:00.000Z",
+        scheduleTime: "17:00:00",
+        scheduleStatus: "Não realizado",
+      },
+      {
+        id: "2",
+        pacientId: "654321",
+        scheduleDate: "2024-08-10T00:00:00.000Z",
+        scheduleTime: "17:00:00",
+        scheduleStatus: "Realizado",
+      },
+    ]);
+
+    const controller = new ScheduleController();
+    await controller.index(req, res);
+
+    expect(getPacients).toHaveBeenCalled();
+    expect(getSchedules).toHaveBeenCalled();
+    expect(res.send).toHaveBeenCalledWith({
+      page: 1,
+      pageSize: 20,
+      totalCount: 1,
+      items: {
+        "2024-08-10T00:00:00.000Z-17:00:00": [
+          {
+            id: "1",
+            pacientId: "123456",
+            scheduleDate: "2024-08-10T00:00:00.000Z",
+            scheduleTime: "17:00:00",
+            scheduleStatus: "Não realizado",
+            pacientName: "Fulano de Tal",
+            pacientBirthDate: "1990-01-01",
+          },
+          {
+            id: "2",
+            pacientId: "654321",
+            scheduleDate: "2024-08-10T00:00:00.000Z",
+            scheduleTime: "17:00:00",
+            scheduleStatus: "Realizado",
+            pacientName: "Ciclano de Tal",
+            pacientBirthDate: "1985-02-02",
+          },
+        ],
+      },
+    });
+  });
+
+  it("deve atualizar um agendamento com sucesso", () => {
+    const updatedSchedule = {
+      id: "123e4567",
+      pacientId: "123456",
+      scheduleDate: new Date("2024-08-11"),
+      scheduleTime: "18:00:00",
+      scheduleStatus: "Realizado",
+    };
+
+    req.body = {
+      scheduleDate: updatedSchedule.scheduleDate,
+      scheduleTime: updatedSchedule.scheduleTime,
+      scheduleStatus: updatedSchedule.scheduleStatus,
+    };
+
+    req.params = { id: "123e4567" };
+
+    getSchedules.mockReturnValue([
+      {
+        id: "123e4567",
+        pacientId: "123456",
+        scheduleDate: new Date("2024-08-10"),
+        scheduleTime: "17:00:00",
+        scheduleStatus: "Não realizado",
+      },
+    ]);
+
+    const controller = new ScheduleController();
+    controller.update(req, res);
+
+    expect(getSchedules).toHaveBeenCalled();
+    expect(updateSchedules).toHaveBeenCalledWith([
+      {
+        id: "123e4567",
+        pacientId: "123456",
+        scheduleDate: req.body.scheduleDate,
+        scheduleTime: req.body.scheduleTime,
+        scheduleStatus: req.body.scheduleStatus,
+      },
+    ]);
+    expect(res.status).toHaveBeenCalledWith(201);
+    expect(res.send).toHaveBeenCalledWith({
+      message: "Agendamento atualizado",
+    });
+  });
+
+  it("deve retornar o agendamento inalterado quando o ID não corresponder", () => {
+    const existingSchedules = [
+      {
+        id: "123e4567",
+        pacientId: "123456",
+        scheduleDate: new Date("2024-08-10"),
+        scheduleTime: "17:00:00",
+        scheduleStatus: "Não realizado",
+      },
+      {
+        id: "234e5678",
+        pacientId: "654321",
+        scheduleDate: new Date("2024-08-11"),
+        scheduleTime: "18:00:00",
+        scheduleStatus: "Agendado",
+      },
+    ];
+
+    req.body = {
+      scheduleDate: new Date("2024-08-12"),
+      scheduleTime: "19:00:00",
+      scheduleStatus: "Realizado",
+    };
+
+    req.params = { id: "inexistente" };
+
+    getSchedules.mockReturnValue(existingSchedules);
+
+    const controller = new ScheduleController();
+    controller.update(req, res);
+
+    expect(getSchedules).toHaveBeenCalled();
+    expect(updateSchedules).toHaveBeenCalledWith(existingSchedules);
+    expect(res.status).toHaveBeenCalledWith(201);
+    expect(res.send).toHaveBeenCalledWith({
+      message: "Agendamento atualizado",
     });
   });
 });

@@ -1,6 +1,7 @@
 import {
   getSchedules,
   addSchedule,
+  updateSchedules
 } from "../../src/services/schedule.service.mjs";
 
 describe("Schedule Service", () => {
@@ -46,5 +47,35 @@ describe("Schedule Service", () => {
 
     const retrievedSchedules = getSchedules();
     expect(retrievedSchedules).toEqual([newSchedule]);
+  });
+
+  it("deve atualizar todos os agendamentos corretamente", () => {
+    const initialSchedule1 = {
+      id: "1",
+      pacientId: "123",
+      scheduleDate: "2024-07-20",
+      scheduleTime: "12:00:00",
+      scheduleStatus: "Agendado",
+    };
+    const initialSchedule2 = {
+      id: "2",
+      pacientId: "456",
+      scheduleDate: "2024-07-21",
+      scheduleTime: "13:00:00",
+      scheduleStatus: "Agendado",
+    };
+
+    addSchedule(initialSchedule1);
+    addSchedule(initialSchedule2);
+
+    const updatedSchedules = [
+      { ...initialSchedule1, scheduleStatus: "Realizado" },
+      { ...initialSchedule2, scheduleStatus: "Cancelado" },
+    ];
+
+    updateSchedules(updatedSchedules);
+
+    const retrievedSchedules = getSchedules();
+    expect(retrievedSchedules).toEqual(updatedSchedules);
   });
 });

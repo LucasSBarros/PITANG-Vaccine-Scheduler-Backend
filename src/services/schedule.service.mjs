@@ -5,3 +5,7 @@ export const addSchedule = (schedule) => {
 };
 
 export const getSchedules = () => schedules;
+
+export const updateSchedules = (updatedSchedules) => {
+  schedules = updatedSchedules;
+};

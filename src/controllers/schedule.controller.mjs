@@ -1,6 +1,10 @@
 import crypto from "node:crypto";
 import { getPacients } from "../services/pacient.service.mjs";
-import { getSchedules, addSchedule } from "../services/schedule.service.mjs";
+import {
+  getSchedules,
+  addSchedule,
+  updateSchedules,
+} from "../services/schedule.service.mjs";
 import scheduleSchema from "../schemas/schedule.schema.mjs";
 
 export default class ScheduleController {
@@ -77,5 +81,20 @@ export default class ScheduleController {
       totalCount: Object.keys(groupedSchedules).length,
       items: groupedSchedules,
     });
+  }
+
+  update(request, response) {
+    const { id } = request.params;
+    const { scheduleDate, scheduleTime, scheduleStatus } = request.body;
+
+    const schedules = getSchedules().map((schedule) => {
+      if (schedule.id === id) {
+        return { ...schedule, scheduleDate, scheduleTime, scheduleStatus };
+      }
+      return schedule;
+    });
+
+    updateSchedules(schedules);
+    response.status(201).send({ message: "Agendamento atualizado" });
   }
 }
