@@ -371,7 +371,7 @@ describe("ScheduleController", () => {
 
   it("deve deletar um agendamento com sucesso", () => {
     req.params = { id: "123e4567" };
-  
+
     getSchedules.mockReturnValue([
       {
         id: "123e4567",
@@ -388,10 +388,10 @@ describe("ScheduleController", () => {
         scheduleStatus: "Agendado",
       },
     ]);
-  
+
     const controller = new ScheduleController();
     controller.destroy(req, res);
-  
+
     expect(getSchedules).toHaveBeenCalled();
     expect(updateSchedules).toHaveBeenCalledWith([
       {
@@ -405,5 +405,4 @@ describe("ScheduleController", () => {
     expect(res.status).toHaveBeenCalledWith(204);
     expect(res.send).toHaveBeenCalled();
   });
-
 });

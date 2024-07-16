@@ -4,7 +4,7 @@ import { expect, describe, it } from "@jest/globals";
 describe("Schedule Schema", () => {
   it("deve validar um agendamento válido", () => {
     const validSchedule = {
-      "id": undefined,
+      id: undefined,
       pacientId: "123456",
       scheduleDate: "2024-07-25T00:00:00.000Z",
       scheduleTime: "14:00:00",
@@ -57,7 +57,7 @@ describe("Schedule Schema", () => {
     const invalidSchedule = {
       pacientId: "123456",
       scheduleDate: "2024-07-25",
-      scheduleTime: "25:30:00", 
+      scheduleTime: "25:30:00",
       scheduleStatus: "Agendado",
       conclusion: "Paciente compareceu",
     };

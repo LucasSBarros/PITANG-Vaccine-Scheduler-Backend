@@ -1,7 +1,8 @@
 import {
   getSchedules,
   addSchedule,
-  updateSchedules
+  updateSchedules,
+  deleteSchedulesByPacientId,
 } from "../../src/services/schedule.service.mjs";
 
 describe("Schedule Service", () => {
@@ -77,5 +78,39 @@ describe("Schedule Service", () => {
 
     const retrievedSchedules = getSchedules();
     expect(retrievedSchedules).toEqual(updatedSchedules);
+  });
+
+  it("deve deletar todos os agendamentos de um paciente específico", () => {
+    const schedules = [
+      {
+        id: "1",
+        pacientId: "123e4567",
+        scheduleDate: "2024-08-10",
+        scheduleTime: "17:00:00",
+        scheduleStatus: "Não realizado",
+      },
+      {
+        id: "2",
+        pacientId: "234e5678",
+        scheduleDate: "2024-08-11",
+        scheduleTime: "18:00:00",
+        scheduleStatus: "Agendado",
+      },
+    ];
+
+    updateSchedules(schedules);
+
+    deleteSchedulesByPacientId("123e4567");
+
+    const remainingSchedules = getSchedules();
+    expect(remainingSchedules).toEqual([
+      {
+        id: "2",
+        pacientId: "234e5678",
+        scheduleDate: "2024-08-11",
+        scheduleTime: "18:00:00",
+        scheduleStatus: "Agendado",
+      },
+    ]);
   });
 });
