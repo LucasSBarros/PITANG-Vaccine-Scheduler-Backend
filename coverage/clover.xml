@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1721101069580" clover="3.2.0">
-  <project timestamp="1721101069580" name="All files">
-    <metrics statements="51" coveredstatements="51" conditionals="6" coveredconditionals="6" methods="16" coveredmethods="16" elements="73" coveredelements="73" complexity="0" loc="51" ncloc="51" packages="5" files="5" classes="5"/>
+<coverage generated="1721132848111" clover="3.2.0">
+  <project timestamp="1721132848111" name="All files">
+    <metrics statements="52" coveredstatements="52" conditionals="6" coveredconditionals="6" methods="16" coveredmethods="16" elements="74" coveredelements="74" complexity="0" loc="52" ncloc="52" packages="5" files="6" classes="6"/>
     <package name="src">
       <metrics statements="10" coveredstatements="10" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
       <file name="index.mjs" path="/Users/lucasbarros/Documents/GitHub/PITANG-Vaccine-Scheduler-Backend/src/index.mjs">
@@ -63,10 +63,14 @@
       </file>
     </package>
     <package name="src.schemas">
-      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="pacient.schema.mjs" path="/Users/lucasbarros/Documents/GitHub/PITANG-Vaccine-Scheduler-Backend/src/schemas/pacient.schema.mjs">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="3" count="3" type="stmt"/>
+      </file>
+      <file name="schedule.schema.mjs" path="/Users/lucasbarros/Documents/GitHub/PITANG-Vaccine-Scheduler-Backend/src/schemas/schedule.schema.mjs">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="3" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.services">
