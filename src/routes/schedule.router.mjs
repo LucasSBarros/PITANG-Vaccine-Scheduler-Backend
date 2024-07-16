@@ -8,4 +8,8 @@ routes.post("/api/schedule", (request, response) =>
   scheduleController.store(request, response)
 );
 
+routes.get("/api/schedule", (request, response) =>
+  scheduleController.index(request, response)
+);
+
 export default routes;

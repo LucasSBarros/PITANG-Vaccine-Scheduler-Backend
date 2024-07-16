@@ -18,6 +18,34 @@ jest.mock("../../src/controllers/schedule.controller.mjs", () => {
         }
         return res.status(201).send({ id: 1, ...req.body });
       }),
+      index: jest.fn((req, res) => {
+        const mockSchedules = [
+          {
+            id: "1",
+            pacientId: "123456",
+            scheduleDate: "2024-08-10T00:00:00.000Z",
+            scheduleTime: "17:00:00",
+            scheduleStatus: "Não realizado",
+            pacientName: "Fulano de Tal",
+            pacientBirthDate: "1990-01-01",
+          },
+          {
+            id: "2",
+            pacientId: "654321",
+            scheduleDate: "2024-08-11T00:00:00.000Z",
+            scheduleTime: "18:00:00",
+            scheduleStatus: "Agendado",
+            pacientName: "Ciclano de Tal",
+            pacientBirthDate: "1985-02-02",
+          },
+        ];
+        res.send({
+          page: 1,
+          pageSize: 20,
+          totalCount: mockSchedules.length,
+          items: mockSchedules,
+        });
+      }),
     };
   });
 });
@@ -53,5 +81,34 @@ describe("Schedule Routes", () => {
 
     expect(response.status).toBe(400);
     expect(response.body.message).toBe("Erro de validação");
+  });
+
+  it("deve retornar todos os agendamentos", async () => {
+    const response = await request(app).get("/api/schedule");
+
+    expect(response.status).toBe(200);
+    expect(response.body.page).toBe(1);
+    expect(response.body.pageSize).toBe(20);
+    expect(response.body.totalCount).toBe(2);
+    expect(response.body.items).toEqual([
+      {
+        id: "1",
+        pacientId: "123456",
+        scheduleDate: "2024-08-10T00:00:00.000Z",
+        scheduleTime: "17:00:00",
+        scheduleStatus: "Não realizado",
+        pacientName: "Fulano de Tal",
+        pacientBirthDate: "1990-01-01",
+      },
+      {
+        id: "2",
+        pacientId: "654321",
+        scheduleDate: "2024-08-11T00:00:00.000Z",
+        scheduleTime: "18:00:00",
+        scheduleStatus: "Agendado",
+        pacientName: "Ciclano de Tal",
+        pacientBirthDate: "1985-02-02",
+      },
+    ]);
   });
 });
