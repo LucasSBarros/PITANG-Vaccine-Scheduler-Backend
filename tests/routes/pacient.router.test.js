@@ -41,6 +41,10 @@ jest.mock("../../src/controllers/pacient.controller.mjs", () => {
         const updatedPacient = { id, fullName, birthDate };
         res.status(200).send(updatedPacient);
       }),
+      destroy: jest.fn((req, res) => {
+        const { id } = req.params;
+        res.status(204).send();
+      }),
     };
   });
 });
@@ -119,5 +123,11 @@ describe("Pacient Routes", () => {
 
     expect(response.status).toBe(400);
     expect(response.body.message).toBe("Erro de validação");
+  });
+
+  it("deve deletar um paciente", async () => {
+    const response = await request(app).delete("/api/pacient/1");
+
+    expect(response.status).toBe(204);
   });
 });

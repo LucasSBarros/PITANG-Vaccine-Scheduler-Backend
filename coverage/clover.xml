@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1721100557009" clover="3.2.0">
-  <project timestamp="1721100557009" name="All files">
-    <metrics statements="49" coveredstatements="49" conditionals="6" coveredconditionals="6" methods="15" coveredmethods="15" elements="70" coveredelements="70" complexity="0" loc="49" ncloc="49" packages="5" files="5" classes="5"/>
+<coverage generated="1721101069580" clover="3.2.0">
+  <project timestamp="1721101069580" name="All files">
+    <metrics statements="51" coveredstatements="51" conditionals="6" coveredconditionals="6" methods="16" coveredmethods="16" elements="73" coveredelements="73" complexity="0" loc="51" ncloc="51" packages="5" files="5" classes="5"/>
     <package name="src">
       <metrics statements="10" coveredstatements="10" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
       <file name="index.mjs" path="/Users/lucasbarros/Documents/GitHub/PITANG-Vaccine-Scheduler-Backend/src/index.mjs">
@@ -47,9 +47,9 @@
       </file>
     </package>
     <package name="src.routes">
-      <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+      <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
       <file name="pacient.router.mjs" path="/Users/lucasbarros/Documents/GitHub/PITANG-Vaccine-Scheduler-Backend/src/routes/pacient.router.mjs">
-        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
         <line num="4" count="2" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
         <line num="7" count="2" type="stmt"/>
@@ -58,6 +58,8 @@
         <line num="12" count="1" type="stmt"/>
         <line num="15" count="2" type="stmt"/>
         <line num="16" count="2" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.schemas">
