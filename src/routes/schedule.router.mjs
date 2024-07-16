@@ -12,4 +12,8 @@ routes.get("/api/schedule", (request, response) =>
   scheduleController.index(request, response)
 );
 
+routes.put("/api/schedule/:id", (request, response) =>
+  scheduleController.update(request, response)
+);
+
 export default routes;

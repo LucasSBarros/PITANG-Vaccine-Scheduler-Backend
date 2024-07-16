@@ -46,6 +46,23 @@ jest.mock("../../src/controllers/schedule.controller.mjs", () => {
           items: mockSchedules,
         });
       }),
+      update: jest.fn((req, res) => {
+        const { id } = req.params;
+        const { scheduleDate, scheduleTime, scheduleStatus } = req.body;
+        const isValid = scheduleDate && scheduleTime && scheduleStatus;
+
+        if (!isValid) {
+          return res.status(400).send({ message: "Erro de validação" });
+        }
+
+        return res.status(201).send({
+          id,
+          pacientId: "123456",
+          scheduleDate,
+          scheduleTime,
+          scheduleStatus,
+        });
+      }),
     };
   });
 });
@@ -110,5 +127,30 @@ describe("Schedule Routes", () => {
         pacientBirthDate: "1985-02-02",
       },
     ]);
+  });
+
+  it("deve atualizar um agendamento", async () => {
+    const response = await request(app).put("/api/schedule/1").send({
+      scheduleDate: "2024-08-11",
+      scheduleTime: "18:00:00",
+      scheduleStatus: "Realizado",
+    });
+
+    expect(response.status).toBe(201);
+    expect(response.body.id).toBe("1");
+    expect(response.body.scheduleDate).toBe("2024-08-11");
+    expect(response.body.scheduleTime).toBe("18:00:00");
+    expect(response.body.scheduleStatus).toBe("Realizado");
+  });
+
+  it("deve retornar erro de validação ao atualizar com dados inválidos", async () => {
+    const response = await request(app).put("/api/schedule/1").send({
+      scheduleDate: "",
+      scheduleTime: "",
+      scheduleStatus: "",
+    });
+
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe("Erro de validação");
   });
 });
