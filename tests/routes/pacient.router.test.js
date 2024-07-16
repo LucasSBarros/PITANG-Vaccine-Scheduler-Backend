@@ -12,7 +12,7 @@ jest.mock('../../src/controllers/pacient.controller.mjs', () => {
                         new Date(pacient.birthDate) <= new Date();
         
         if (!isValid) {
-          return res.status(400).send({ message: 'Validation error' });
+          return res.status(400).send({ message: 'Erro de validação' });
         }
         return res.status(201).send({ id: 1, ...req.body });
       }),
@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(pacientRoutes);
 
 describe('Pacient Routes', () => {
-  it('should create a new pacient', async () => {
+  it('deve criar um novo paciente', async () => {
     const response = await request(app)
       .post('/api/pacient')
       .send({ fullName: 'Fulano de Tal', birthDate: '1994-06-16' });
@@ -36,30 +36,30 @@ describe('Pacient Routes', () => {
     expect(response.body.birthDate).toBe('1994-06-16');
   });
 
-  it('should return validation error for invalid data', async () => {
+  it('deve retornar erro de validação para dados inválidos', async () => {
     const response = await request(app)
       .post('/api/pacient')
       .send({ fullName: '', birthDate: '' });
 
     expect(response.status).toBe(400);
-    expect(response.body.message).toBe('Validation error');
+    expect(response.body.message).toBe('Erro de validação');
   });
 
-  it('should return validation error for invalid date', async () => {
+  it('deve retornar erro de validação para uma data inválida', async () => {
     const response = await request(app)
       .post('/api/pacient')
       .send({ fullName: 'Fulano de Tal', birthDate: '1800-06-16' });
 
     expect(response.status).toBe(400);
-    expect(response.body.message).toBe('Validation error');
+    expect(response.body.message).toBe('Erro de validação');
   });
 
-  it('should return validation error for invalid name', async () => {
+  it('deve retornar erro de validação para um nome inválido', async () => {
     const response = await request(app)
       .post('/api/pacient')
       .send({ fullName: '', birthDate: '1994-06-16' });
 
     expect(response.status).toBe(400);
-    expect(response.body.message).toBe('Validation error');
+    expect(response.body.message).toBe('Erro de validação');
   });
 });
