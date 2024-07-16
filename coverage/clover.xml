@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1721086441248" clover="3.2.0">
-  <project timestamp="1721086441248" name="All files">
-    <metrics statements="15" coveredstatements="14" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="2" elements="21" coveredelements="18" complexity="0" loc="15" ncloc="15" packages="3" files="3" classes="3"/>
+<coverage generated="1721088149920" clover="3.2.0">
+  <project timestamp="1721088149920" name="All files">
+    <metrics statements="25" coveredstatements="23" conditionals="4" coveredconditionals="4" methods="7" coveredmethods="4" elements="36" coveredelements="31" complexity="0" loc="25" ncloc="25" packages="3" files="3" classes="3"/>
     <package name="controllers">
-      <metrics statements="10" coveredstatements="10" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+      <metrics statements="18" coveredstatements="18" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
       <file name="pacient.controller.mjs" path="/Users/lucasbarros/Documents/GitHub/PITANG-Vaccine-Scheduler-Backend/src/controllers/pacient.controller.mjs">
-        <metrics statements="10" coveredstatements="10" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <metrics statements="18" coveredstatements="18" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
         <line num="7" count="2" type="stmt"/>
         <line num="8" count="2" type="stmt"/>
         <line num="10" count="2" type="cond" truecount="2" falsecount="0"/>
@@ -16,6 +16,14 @@
         <line num="19" count="1" type="stmt"/>
         <line num="25" count="1" type="stmt"/>
         <line num="26" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
       </file>
     </package>
     <package name="schemas">
@@ -26,13 +34,15 @@
       </file>
     </package>
     <package name="services">
-      <metrics statements="4" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <metrics statements="6" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
       <file name="pacient.service.mjs" path="/Users/lucasbarros/Documents/GitHub/PITANG-Vaccine-Scheduler-Backend/src/services/pacient.service.mjs">
-        <metrics statements="4" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <metrics statements="6" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
       </file>
     </package>
   </project>

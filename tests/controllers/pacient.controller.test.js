@@ -3,6 +3,7 @@ import PacientController from "../../src/controllers/pacient.controller.mjs";
 import {
   addPacient,
   getPacients,
+  updatePacients
 } from "../../src/services/pacient.service.mjs";
 import pacientSchema from "../../src/schemas/pacient.schema.mjs";
 
@@ -18,6 +19,9 @@ describe("PacientController", () => {
         fullName: "Fulano de Tal",
         birthDate: "1994-06-16",
       },
+      params: {
+        id: "123e4567"
+      }
     };
 
     res = {
@@ -99,5 +103,31 @@ describe("PacientController", () => {
       totalCount: mockPacients.length,
       items: mockPacients,
     });
+  });
+
+  it("deve atualizar um paciente", () => {
+    const mockPacients = [
+      { id: "123e4567", fullName: "Paciente 1", birthDate: "2000-01-01" },
+      { id: "2", fullName: "Paciente 2", birthDate: "1990-02-02" },
+    ];
+    getPacients.mockReturnValue(mockPacients);
+
+    const updatedPacient = { id: "123e4567", fullName: "Fulano de Tal", birthDate: "1994-06-16" };
+    const updatedPacients = [
+      updatedPacient,
+      { id: "2", fullName: "Paciente 2", birthDate: "1990-02-02" },
+    ];
+    updatePacients.mockImplementation((pacients) => {
+      return updatedPacients;
+    });
+
+    const controller = new PacientController();
+
+    controller.update(req, res);
+
+    expect(getPacients).toHaveBeenCalled();
+    expect(updatePacients).toHaveBeenCalledWith(updatedPacients);
+    expect(res.status).toHaveBeenCalledWith(201);
+    expect(res.send).toHaveBeenCalledWith({ message: "Paciente atualizado" });
   });
 });

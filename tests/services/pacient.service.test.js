@@ -1,6 +1,7 @@
 import {
   addPacient,
   getPacients,
+  updateSchedules
 } from "../../src/services/pacient.service.mjs";
 
 jest.mock("../../src/services/pacient.service.mjs", () => {
@@ -8,6 +9,9 @@ jest.mock("../../src/services/pacient.service.mjs", () => {
   return {
     addPacient: (pacient) => pacients.push(pacient),
     getPacients: () => pacients,
+    updateSchedules: (updatedSchedules) => {
+      pacients = updatedSchedules;
+    },
     __resetPacients: () => {
       pacients = [];
     },
@@ -49,6 +53,34 @@ describe("pacient.service", () => {
     const pacients =
       require("../../src/services/pacient.service.mjs").getPacients();
     expect(pacients).toContainEqual(pacient1);
+    expect(pacients).toContainEqual(pacient2);
+  });
+
+  it("deve atualizar os pacientes", () => {
+    const pacient1 = {
+      id: "123456",
+      fullName: "Fulano de Tal",
+      birthDate: "1994-06-16",
+    };
+    const pacient2 = {
+      id: "789012",
+      fullName: "Ciclano de Tal",
+      birthDate: "1988-10-10",
+    };
+    addPacient(pacient1);
+    addPacient(pacient2);
+
+    const updatedPacient1 = {
+      id: "123456",
+      fullName: "Fulano de Tal Atualizado",
+      birthDate: "1994-06-16",
+    };
+    const updatedPacients = [updatedPacient1, pacient2];
+    updateSchedules(updatedPacients);
+
+    const pacients =
+      require("../../src/services/pacient.service.mjs").getPacients();
+    expect(pacients).toContainEqual(updatedPacient1);
     expect(pacients).toContainEqual(pacient2);
   });
 });

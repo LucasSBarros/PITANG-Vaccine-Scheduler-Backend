@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-import { addPacient, getPacients } from "../services/pacient.service.mjs";
+import { addPacient, getPacients, updatePacients } from "../services/pacient.service.mjs";
 import pacientSchema from "../schemas/pacient.schema.mjs";
 
 export default class PacientController {
@@ -29,5 +29,20 @@ export default class PacientController {
       totalCount: pacients.length,
       items: pacients,
     });
+  }
+
+  update(request, response) {
+    const { id } = request.params;
+    const { fullName, birthDate } = request.body;
+
+    const pacients = getPacients().map((pacient) => {
+      if (pacient.id === id) {
+        return { ...pacient, fullName, birthDate };
+      }
+      return pacient;
+    });
+
+    updatePacients(pacients);
+    response.status(201).send({ message: "Paciente atualizado" });
   }
 }

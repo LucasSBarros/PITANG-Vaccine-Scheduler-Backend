@@ -5,3 +5,7 @@ export const addPacient = (pacient) => {
 };
 
 export const getPacients = () => pacients;
+
+export const updatePacients = (updatedPacients) => {
+  pacients = updatedPacients;
+};
