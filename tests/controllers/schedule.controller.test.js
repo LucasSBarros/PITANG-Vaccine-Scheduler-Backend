@@ -166,4 +166,63 @@ describe("ScheduleController", () => {
       error: "Não há vagas disponíveis para este horário.",
     });
   });
+
+  it("deve retornar agendamentos detalhados com informações dos pacientes", async () => {
+    getPacients.mockResolvedValue([
+      { id: "123456", fullName: "Fulano de Tal", birthDate: "1990-01-01" },
+      { id: "654321", fullName: "Ciclano de Tal", birthDate: "1985-02-02" },
+    ]);
+
+    getSchedules.mockReturnValue([
+      {
+        id: "1",
+        pacientId: "123456",
+        scheduleDate: "2024-08-10T00:00:00.000Z",
+        scheduleTime: "17:00:00",
+        scheduleStatus: "Não realizado",
+      },
+      {
+        id: "2",
+        pacientId: "654321",
+        scheduleDate: "2024-08-10T00:00:00.000Z",
+        scheduleTime: "18:00:00",
+        scheduleStatus: "Não realizado",
+      },
+    ]);
+
+    const controller = new ScheduleController();
+    await controller.index(req, res);
+
+    expect(getPacients).toHaveBeenCalled();
+    expect(getSchedules).toHaveBeenCalled();
+    expect(res.send).toHaveBeenCalledWith({
+      page: 1,
+      pageSize: 20,
+      totalCount: 2,
+      items: {
+        "2024-08-10T00:00:00.000Z-17:00:00": [
+          {
+            id: "1",
+            pacientId: "123456",
+            scheduleDate: "2024-08-10T00:00:00.000Z",
+            scheduleTime: "17:00:00",
+            scheduleStatus: "Não realizado",
+            pacientName: "Fulano de Tal",
+            pacientBirthDate: "1990-01-01",
+          },
+        ],
+        "2024-08-10T00:00:00.000Z-18:00:00": [
+          {
+            id: "2",
+            pacientId: "654321",
+            scheduleDate: "2024-08-10T00:00:00.000Z",
+            scheduleTime: "18:00:00",
+            scheduleStatus: "Não realizado",
+            pacientName: "Ciclano de Tal",
+            pacientBirthDate: "1985-02-02",
+          },
+        ],
+      },
+    });
+  });
 });

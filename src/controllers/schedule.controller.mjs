@@ -12,7 +12,7 @@ export default class ScheduleController {
       return response.status(400).send(error);
     }
 
-    const pacient = getPacients().find(p => p.id === data.pacientId);
+    const pacient = getPacients().find((p) => p.id === data.pacientId);
     if (!pacient) {
       return response.status(400).json({ error: "Paciente não encontrado." });
     }
@@ -23,18 +23,59 @@ export default class ScheduleController {
     const { scheduleDate, scheduleTime } = data;
     const formattedDate = scheduleDate.toISOString().split("T")[0];
 
-    const daySchedules = getSchedules().filter((s) => s.scheduleDate === formattedDate);
+    const daySchedules = getSchedules().filter(
+      (s) => s.scheduleDate === formattedDate
+    );
     if (daySchedules.length >= 20) {
-      return response.status(400).json({ error: "Não há vagas disponíveis para esta data." });
+      return response
+        .status(400)
+        .json({ error: "Não há vagas disponíveis para esta data." });
     }
 
-    const timeSchedules = daySchedules.filter((s) => s.scheduleTime === scheduleTime);
+    const timeSchedules = daySchedules.filter(
+      (s) => s.scheduleTime === scheduleTime
+    );
     if (timeSchedules.length >= 2) {
-      return response.status(400).json({ error: "Não há vagas disponíveis para este horário." });
+      return response
+        .status(400)
+        .json({ error: "Não há vagas disponíveis para este horário." });
     }
 
     addSchedule({ ...data, scheduleDate: formattedDate });
 
-    response.status(201).send({ message: "Agendamento criado com sucesso.", data });
+    response
+      .status(201)
+      .send({ message: "Agendamento criado com sucesso.", data });
+  }
+
+  async index(request, response) {
+    const pacients = await getPacients();
+    const schedules = getSchedules();
+    const detailedSchedules = schedules.map((schedule) => {
+      const pacient = pacients.find(
+        (pacient) => pacient.id === schedule.pacientId
+      );
+      return {
+        ...schedule,
+        pacientName: pacient?.fullName,
+        pacientBirthDate: pacient?.birthDate,
+      };
+    });
+
+    const groupedSchedules = detailedSchedules.reduce((acc, schedule) => {
+      const key = `${schedule.scheduleDate}-${schedule.scheduleTime}`;
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(schedule);
+      return acc;
+    }, {});
+
+    response.send({
+      page: 1,
+      pageSize: 20,
+      totalCount: Object.keys(groupedSchedules).length,
+      items: groupedSchedules,
+    });
   }
 }
