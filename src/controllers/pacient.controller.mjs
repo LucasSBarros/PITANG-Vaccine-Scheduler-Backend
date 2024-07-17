@@ -5,6 +5,7 @@ import {
   updatePacients,
   deletePacientById,
 } from "../services/pacient.service.mjs";
+import { deleteSchedulesByPacientId } from "../services/schedule.service.mjs";
 import pacientSchema from "../schemas/pacient.schema.mjs";
 
 export default class PacientController {
@@ -55,8 +56,9 @@ export default class PacientController {
     const { id } = request.params;
 
     deletePacientById(id);
+    deleteSchedulesByPacientId(id);
 
-    console.log(`Pacient with id ${id}`);
+    console.log(`Pacient with id ${id} deleted along with their schedules`);
 
     response.status(204).send();
   }
