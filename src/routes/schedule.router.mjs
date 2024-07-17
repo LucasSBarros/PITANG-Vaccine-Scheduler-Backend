@@ -16,4 +16,8 @@ routes.put("/api/schedule/:id", (request, response) =>
   scheduleController.update(request, response)
 );
 
+routes.delete("/api/schedule/:id", (request, response) =>
+  scheduleController.destroy(request, response)
+);
+
 export default routes;

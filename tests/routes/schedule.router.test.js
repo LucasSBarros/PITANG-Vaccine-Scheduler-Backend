@@ -63,6 +63,9 @@ jest.mock("../../src/controllers/schedule.controller.mjs", () => {
           scheduleStatus,
         });
       }),
+      destroy: jest.fn((req, res) => {
+        return res.status(204).send();
+      }),
     };
   });
 });
@@ -152,5 +155,11 @@ describe("Schedule Routes", () => {
 
     expect(response.status).toBe(400);
     expect(response.body.message).toBe("Erro de validação");
+  });
+
+  it("deve deletar um agendamento", async () => {
+    const response = await request(app).delete("/api/schedule/1");
+
+    expect(response.status).toBe(204);
   });
 });
