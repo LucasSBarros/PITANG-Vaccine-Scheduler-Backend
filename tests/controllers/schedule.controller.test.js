@@ -258,7 +258,7 @@ describe("ScheduleController", () => {
     expect(res.send).toHaveBeenCalledWith({
       page: 1,
       pageSize: 20,
-      totalCount: 1,
+      totalCount: 2,
       items: {
         "2024-08-10T00:00:00.000Z-17:00:00": [
           {

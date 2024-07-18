@@ -79,18 +79,4 @@ describe("Schedule Schema", () => {
     expect(result.data.scheduleStatus).toBe("Não realizado");
   });
 
-  it("deve permitir campos opcionais como nulos ou undefined", () => {
-    const validSchedule = {
-      pacientId: "123456",
-      scheduleDate: "2024-07-25",
-      scheduleTime: "14:00:00",
-      scheduleStatus: undefined,
-      conclusion: null,
-    };
-
-    const result = scheduleSchema.safeParse(validSchedule);
-    expect(result.success).toBe(true);
-    expect(result.data.scheduleStatus).toBe("Não realizado");
-    expect(result.data.conclusion).toBeNull();
-  });
 });

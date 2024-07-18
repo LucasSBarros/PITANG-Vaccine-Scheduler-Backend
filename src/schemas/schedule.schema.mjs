@@ -10,7 +10,7 @@ const scheduleSchema = z.object({
     message: "Formato de horário inválido!",
   }),
   scheduleStatus: z.string().optional().default("Não realizado"),
-  conclusion: z.string().optional().nullable(),
+  conclusion: z.string().optional().default("Não concluído. A vacina não foi aplicada"),
 });
 
 export default scheduleSchema;
