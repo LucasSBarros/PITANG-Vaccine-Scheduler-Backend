@@ -78,18 +78,18 @@ export default class ScheduleController {
     response.send({
       page: 1,
       pageSize: 20,
-      totalCount: Object.keys(groupedSchedules).length,
+      totalCount: schedules.length,
       items: groupedSchedules,
     });
   }
 
   update(request, response) {
     const { id } = request.params;
-    const { scheduleDate, scheduleTime, scheduleStatus } = request.body;
+    const { scheduleDate, scheduleTime, scheduleStatus, conclusion } = request.body;
 
     const schedules = getSchedules().map((schedule) => {
       if (schedule.id === id) {
-        return { ...schedule, scheduleDate, scheduleTime, scheduleStatus };
+        return { ...schedule, scheduleDate, scheduleTime, scheduleStatus, conclusion };
       }
       return schedule;
     });
