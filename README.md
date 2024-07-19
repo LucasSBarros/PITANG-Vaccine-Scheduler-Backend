@@ -1,4 +1,4 @@
-# Sistema de Agendamento de Vacinas - Programa de Estágio PINTANG
+# Sistema de Agendamento de Vacinas - Programa de Estágio PITANG
 
 ## Visão Geral
 
